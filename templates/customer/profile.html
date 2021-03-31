@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Profile Detail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+
+    {% load static %}
+</head>
+
+<body>
+    <div style="margin-top: 70px;">
+        <!-- Start: 2 Rows 1+2 Columns -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6"><img class="d-md-flex" src="{% static 'customer/agroneedlogo.png' %}"></div>
+                <div class="col-md-6">
+                    <h1>User Info</h1>
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ customer.customerName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ customer.customerEmail }}</td>
+                        </tr>
+                        <tr>
+                            <th>Contact</th>
+                            <td>{{ customer.customerContact }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div><!-- End: 2 Rows 1+2 Columns -->
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

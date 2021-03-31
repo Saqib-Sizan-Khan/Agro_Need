@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400|Roboto:300,400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400|Roboto:300,400,700">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'customer/navbar.css' %}">
+</head>
+
+<body>
+    <!-- Start: sticky dark top nav with dropdown -->
+    <nav class="navbar navbar-light navbar-expand-md navbar-fixed-top navigation-clean-button" style="background: linear-gradient(rgb(21,95,2), rgb(241,232,14));width: 100%;height: 93px;">
+        <div class="container">
+            <div><a class="navbar-brand" href="#"><span><img src="{% static 'customer/agroneedlogo.png' %}" style="width: 200px;"></span> </a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button></div>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav nav-right">
+                    <li class="nav-item"><a class="nav-link active" href="#"><i class="fa fa-home" style="height: 1px;"></i>home </a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'customersignup' %}"><i class="fa fa-user-circle"></i>Customer Sign Up</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'customerlogin' %}"><i class="fa fa-user-secret"></i>Customer Log In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-envelope-o"></i>contact </a></li>
+                </ul>
+            </div>
+        </div>
+    </nav><!-- End: sticky dark top nav with dropdown -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
