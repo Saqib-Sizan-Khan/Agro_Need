@@ -6,6 +6,9 @@ from django.db.models import Q
 def homePage(request):
     return render(request,"home/home.html")
 
+def register(request):
+    return render(request,'home/customerregistration.html')
+
 
 def signUp(request):
 
