@@ -17,19 +17,26 @@ from django.contrib import admin
 from django.urls import path
 from customer import views as cviews
 from seller import views as sviews
+from products import views as pviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', cviews.homePage,name="home"),
 
+    #seller url
     path('sellerregistration/', sviews.register,name="sellerregistration"),
     path('sellersignup/', sviews.signUp,name="sellersignup"),
     path('sellerlogin/', sviews.login,name="sellerlogin"),
-    path('customerlogin/sellerprofile', sviews.sellerprofile,name="sellerprofile"),
+    path('sellerlogin/sellerprofile', sviews.sellerprofile,name="sellerprofile"),
+    path('sellerlogin/logout/',sviews.sellerLogout,name='sellerlogout'),
 
-
+    #customer url
     path('customerregistration/', cviews.register,name="customerregistration"),
     path('customersignup/', cviews.signUp,name="customersignup"),
     path('customerlogin/', cviews.login,name="customerlogin"),
-    path('customerlogin/customerprofile', cviews.profile,name="customerprofile"),
+    path('customerlogin/customerprofile', cviews.customerprofile,name="customerprofile"),
+    path('customerlogin/logout/',cviews.customerLogout,name='customerlogout'),
+
+    #product url
+    path('sellerlogin/addproduct',pviews.addProduct,name="addproduct")
 ]

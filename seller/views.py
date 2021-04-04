@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Seller
+from .models import Seller,TemporaryS
 from django.contrib import messages
 from django.db.models import Q
 
@@ -54,8 +54,8 @@ def login(request):
 
                 seller = Seller.objects.get(Q(sellerName=username) & Q(sellerPassword=password))
 
-                # temporary_info = TemporarySP(id=1,parentName=username, parentPassword=password)
-                # temporary_info.save()
+                temporary_info = TemporaryS(id=1,sellerName=username, sellerPassword=password)
+                temporary_info.save()
 
                 context = {"seller": seller}
                 return render(request,"seller/sellerprofile.html",context)
@@ -72,4 +72,17 @@ def login(request):
 
 
 def sellerprofile(request):
-    return render(request,"seller/sellerprofile.html")
+
+    x = TemporaryS.objects.get(id=1)
+    seller = Seller.objects.get(Q(sellerName=x.sellerName) & Q(sellerPassword=x.sellerPassword))
+    context = {"seller": seller}
+
+    return render(request,"seller/sellerprofile.html",context)
+
+
+def sellerLogout(request):
+
+    x = TemporaryS.objects.get(id=1)
+    x.delete()
+
+    return redirect('home')

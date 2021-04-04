@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Customer
+from .models import Customer,TemporaryC
 from django.contrib import messages
 from django.db.models import Q
 
@@ -55,8 +55,8 @@ def login(request):
 
                 customer = Customer.objects.get(Q(customerName=username) & Q(customerPassword=password))
 
-                # temporary_info = TemporarySP(id=1,parentName=username, parentPassword=password)
-                # temporary_info.save()
+                temporary_info = TemporaryC(id=1,customerName=username, customerPassword=password)
+                temporary_info.save()
 
                 context = {"customer": customer}
                 return render(request,"customer/profile.html",context)
@@ -72,5 +72,18 @@ def login(request):
         return render(request, "customer/customerlogin.html")
 
 
-def profile(request):
-    return render(request,"customer/profile.html")
+def customerprofile(request):
+
+    x = TemporaryC.objects.get(id=1)
+    customer = Customer.objects.get(Q(customerName=x.customerName) & Q(customerPassword=x.customerPassword))
+    context = {"customer": customer}
+
+    return render(request,"customer/profile.html",context)
+
+
+def customerLogout(request):
+
+    x = TemporaryC.objects.get(id=1)
+    x.delete()
+
+    return redirect('home')

@@ -8,3 +8,14 @@ class Seller(models.Model):
     sellerContact = models.CharField(max_length=11)
     sellerPassword = models.CharField(max_length=20)
     rating = models.IntegerField()
+
+    class Meta:
+        db_table = 'Seller Info'
+
+
+class TemporaryS(models.Model):
+    sellerName = models.CharField(max_length=20)
+    sellerPassword = models.CharField(max_length=20)
+
+    class Meta:
+        db_table = 'Seller Temporary Data'
