@@ -33,3 +33,14 @@ def addProduct(request):
             messages.info(request,"Invalid Seller Id")
 
     return render(request,'products/addproduct.html')
+
+
+def showProduct(request):
+    if request.method == "GET":
+
+        products = Products.objects.filter()
+        context = {'products': products}
+
+        return render(request,'products/showproductlist.html',context)
+
+    return render(request,'products/showproductlist.html')

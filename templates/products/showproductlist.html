@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Profile Detail</title>
+    <meta charset="UTF-8">
+    <title>Product List</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'customer/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'products/productlist.css' %}">
 </head>
-
 <body>
 
     <!-- Start: sticky dark top nav with dropdown -->
@@ -29,37 +30,49 @@
         </div>
     </nav><!-- End: sticky dark top nav with dropdown -->
 
+    <!-- Start: Lista Productos Canito -->
     <div style="margin-top: 70px;">
-        <!-- Start: 2 Rows 1+2 Columns -->
         <div class="container">
             <div class="row">
-                <div class="col-md-6"><img class="d-md-flex" src="{% static 'customer/agroneedlogo.png' %}"></div>
-                <div class="col-md-6">
-                    <h1>User Info</h1>
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <td>{{ customer.customerName }}</td>
-                        </tr>
-                        <tr>
-                            <th>ID</th>
-                            <td>{{ customer.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <td>{{ customer.customerEmail }}</td>
-                        </tr>
-                        <tr>
-                            <th>Contact</th>
-                            <td>{{ customer.customerContact }}</td>
-                        </tr>
-                    </table>
+                <div class="col-md-4">
+                    <h2 style="width: 343px;">List of product</h2>
+                </div>
+                <div class="col d-xl-flex justify-content-xl-end">
+                    <a href="{% url 'customerprofile' %}">
+                        <button class="btn btn-danger d-xl-flex align-items-xl-start" type="button">Back</button>
+                    </a>
                 </div>
             </div>
-        </div><!-- End: 2 Rows 1+2 Columns -->
-    </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Start: Data Table --><table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product ID</th>
+                <th>Product Price</th>
+                <th>Seller ID</th>
+                <th>Product Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in products %}
+                <tr>
+                    <td>{{ p.productName }}</td>
+                    <td>{{ p.id }}</td>
+                    <td>{{ p.productPrice }}</td>
+                    <td>{{ p.sellerId }}</td>
+                    <td>{{ p.productDetails }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table><!-- End: Data Table -->
+                </div>
+            </div>
+        </div>
+    </div><!-- End: Lista Productos Canito -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
-</body>
 
+</body>
 </html>

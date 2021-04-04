@@ -38,5 +38,6 @@ urlpatterns = [
     path('customerlogin/logout/',cviews.customerLogout,name='customerlogout'),
 
     #product url
-    path('sellerlogin/addproduct',pviews.addProduct,name="addproduct")
+    path('sellerlogin/addproduct',pviews.addProduct,name="addproduct"),
+    path('customerlogin/showproduct',pviews.showProduct,name="showproduct"),
 ]
