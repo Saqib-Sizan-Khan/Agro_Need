@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Product List</title>
+    <title>Order List</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
@@ -21,10 +21,10 @@
             <div><a class="navbar-brand" href="#"><span><img src="{% static 'customer/agroneedlogo.png' %}" style="width: 200px;"></span> </a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button></div>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav nav-right">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'customerprofile' %}"><i class="fa fa-user-circle"></i>Profile</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'showproduct' %}" style="height: 1px;"><i class="fa fa-user-circle"></i>Product List</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'orderproduct' %}"><i class="fa fa-user-circle"></i>Order Product</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'customerlogout' %}"><i class="fa fa-user-secret"></i>Log Out</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'sellerprofile' %}"><i class="fa fa-user-circle"></i>Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'addproduct' %}"><i class="fa fa-user-circle"></i>Product List</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'orderproduct' %}"><i class="fa fa-user-circle" style="height: 1px;"></i>Order Product</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'sellerlogout' %}"><i class="fa fa-user-secret"></i>Log Out</a></li>
                 </ul>
             </div>
         </div>
@@ -35,10 +35,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h2 style="width: 343px;">List of product</h2>
+                    <h2 style="width: 343px;">List of Orders for {{ seller.sellerName }}</h2>
                 </div>
                 <div class="col d-xl-flex justify-content-xl-end">
-                    <a href="{% url 'customerprofile' %}">
+                    <a href="{% url 'sellerprofile' %}">
                         <button class="btn btn-danger d-xl-flex align-items-xl-start" type="button">Back</button>
                     </a>
                 </div>
@@ -49,20 +49,16 @@
         <thead>
             <tr>
                 <th>Product Name</th>
-                <th>Product ID</th>
                 <th>Product Price</th>
-                <th>Seller ID</th>
-                <th>Product Details</th>
+                <th>Customer ID</th>
             </tr>
         </thead>
         <tbody>
-            {% for p in products %}
+            {% for so in seller_order %}
                 <tr>
-                    <td>{{ p.productName }}</td>
-                    <td>{{ p.id }}</td>
-                    <td>{{ p.productPrice }}</td>
-                    <td>{{ p.sellerId }}</td>
-                    <td>{{ p.productDetails }}</td>
+                    <td>{{ so.productName }}</td>
+                    <td>{{ so.productPrice }}</td>
+                    <td>{{ so.customerId }}</td>
                 </tr>
             {% endfor %}
         </tbody>
