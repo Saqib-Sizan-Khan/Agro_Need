@@ -105,3 +105,11 @@ body {
 .btn--delta:hover, .btn--delta:focus, .btn--delta:active {
   color: #3eecac;
 }
+
+.button{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

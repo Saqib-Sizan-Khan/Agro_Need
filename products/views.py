@@ -9,27 +9,16 @@ def addProduct(request):
     if request.method == "POST":
         productname = request.POST["productname"]
         productprice = request.POST["productprice"]
-        sellerid = request.POST["sellerid"]
         productdetails = request.POST["productdetails"]
 
-        if Seller.objects.filter(id=sellerid).exists():
+        x = TemporaryS.objects.get(id=1)
+        seller = Seller.objects.get(Q(sellerName=x.sellerName) & Q(sellerPassword=x.sellerPassword))
 
-            seller = Seller.objects.get(id=sellerid)
-            x = TemporaryS.objects.get(id=1)
+        add = Products(sellerId=seller.id,productName=productname,productPrice=productprice,productDetails=productdetails)
 
-            if seller.sellerName == x.sellerName and seller.sellerPassword == x.sellerPassword:
-
-                add = Products(sellerId=sellerid,productName=productname,
-                               productPrice=productprice,productDetails=productdetails)
-
-                add.save()
-                messages.info(request,"Product Added")
-                return redirect("addproduct")
-            else:
-                messages.info(request, "Invalid Seller Id")
-
-        else:
-            messages.info(request,"Invalid Seller Id")
+        add.save()
+        messages.info(request,"Product Added")
+        return redirect("addproduct")
 
     return render(request,'products/addproduct.html')
 
@@ -42,42 +31,38 @@ def showProduct(request):
 
         return render(request,'products/showproductlist.html',context)
 
-    return render(request,'products/showproductlist.html')
-
-
-def orderProduct(request):
-    if request.method == "POST":
+    else:
         productid = request.POST["productid"]
-        customerid = request.POST["customerid"]
 
         if Products.objects.filter(id=productid).exists():
 
-            customer = Customer.objects.get(id=customerid)
             x = TemporaryC.objects.get(id=1)
+            customer = Customer.objects.get(Q(customerName=x.customerName) & Q(customerPassword=x.customerPassword))
 
-            if customer.customerName == x.customerName and customer.customerPassword == x.customerPassword:
+            y = Products.objects.get(id=productid)
 
-                y = Products.objects.get(id=productid)
+            order = OrderProducts(productName=y.productName, productPrice=y.productPrice,
+                                  sellerId=y.sellerId, customerId=customer.id)
 
-                order = OrderProducts(productName=y.productName, productPrice=y.productPrice,
-                                      sellerId=y.sellerId, customerId=customerid)
-
-                order.save()
-                messages.info(request,"Product Ordered")
-                return redirect("orderproduct")
-            else:
-                messages.info(request, "Invalid Customer Id")
+            order.save()
+            messages.info(request, "Product Ordered")
+            return redirect("showproduct")
 
         else:
             messages.info(request, "Invalid Product Id")
 
-    return render(request,"products/orderproduct.html")
+        products = Products.objects.filter()
+        context = {'products': products}
+
+        return render(request, 'products/showproductlist.html', context)
 
 
 def showOrder(request):
+
+    x = TemporaryS.objects.get(id=1)
+    seller = Seller.objects.get(Q(sellerName=x.sellerName) & Q(sellerPassword=x.sellerPassword))
+
     if request.method == "GET":
-        x = TemporaryS.objects.get(id=1)
-        seller = Seller.objects.get(Q(sellerName=x.sellerName) & Q(sellerPassword=x.sellerPassword))
 
         seller_order = OrderProducts.objects.filter(sellerId=seller.id)
 
@@ -85,4 +70,48 @@ def showOrder(request):
 
         return render(request,'products/showorder.html',context)
 
-    return render(request,"products/showorder.html")
+    else:
+        orderid = request.POST["orderid"]
+
+        if OrderProducts.objects.filter(id=orderid).exists():
+
+            y = OrderProducts.objects.get(id=orderid)
+
+            sell = BuyProducts(productName=y.productName, productPrice=y.productPrice,
+                               sellerId=y.sellerId, customerId=y.customerId)
+
+            sell.save()
+            y.delete()
+            messages.info(request, "Product Sold")
+            return redirect("showorder")
+
+        else:
+            messages.info(request, "Invalid Order Id")
+
+        seller_order = OrderProducts.objects.filter(sellerId=seller.id)
+        context = {'seller_order': seller_order, 'seller': seller}
+
+        return render(request, 'products/showorder.html', context)
+
+
+def buyProduct(request):
+    if request.method == "GET":
+
+        x = TemporaryC.objects.get(id=1)
+        productPrice = 0
+
+        customer = Customer.objects.get(Q(customerName=x.customerName) & Q(customerPassword=x.customerPassword))
+
+        customer_buy = BuyProducts.objects.filter(customerId=customer.id)
+
+        for cb in customer_buy:
+            productPrice += cb.productPrice
+
+        totalProduct = len(customer_buy)
+
+        context = {'customer_buy': customer_buy,'customer' : customer,'productPrice':productPrice,'totalProduct':totalProduct}
+
+        return render(request,"products/buyproduct.html",context)
+
+
+    return render(request,"products/buyproduct.html")

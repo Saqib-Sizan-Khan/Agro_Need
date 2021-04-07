@@ -40,6 +40,6 @@ urlpatterns = [
     #product url
     path('sellerlogin/addproduct',pviews.addProduct,name="addproduct"),
     path('customerlogin/showproduct',pviews.showProduct,name="showproduct"),
-    path('customerlogin/orderproduct',pviews.orderProduct,name="orderproduct"),
     path('sellerlogin/showorder',pviews.showOrder,name="showorder"),
+    path('customerlogin/buyproduct',pviews.buyProduct,name="buyproduct"),
 ]
