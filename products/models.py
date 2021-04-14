@@ -5,6 +5,9 @@ class Products(models.Model):
     productPrice = models.FloatField()
     sellerId = models.IntegerField()
     productDetails = models.TextField()
+    @staticmethod
+    def getAllProducts():
+        return Products.objects.all()
 
     class Meta:
         db_table = 'Products Info'

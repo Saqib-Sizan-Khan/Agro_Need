@@ -7,6 +7,7 @@ class Customer(models.Model):
     customerEmail = models.EmailField(max_length=50)
     customerContact = models.CharField(max_length=11)
     customerPassword = models.CharField(max_length=20)
+    customerImage = models.ImageField(upload_to='customer_img/images',default='default.png')
 
     class Meta:
         db_table = 'Customer Info'

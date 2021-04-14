@@ -57,6 +57,34 @@ def showProduct(request):
         return render(request, 'products/showproductlist.html', context)
 
 
+def sellerProduct(request):
+    if request.method == "GET":
+
+        x = TemporaryS.objects.get(id=1)
+        seller = Seller.objects.get(Q(sellerName=x.sellerName) & Q(sellerPassword=x.sellerPassword))
+
+        products = Products.objects.filter(sellerId=seller.id)
+        context = {'products': products}
+
+        return render(request,'products/sellerproductlist.html',context)
+
+    else:
+        productid = request.POST["productid"]
+
+        products = Products.objects.get(id=productid)
+        products.delete()
+        messages.info(request, "Product Removed")
+
+
+    x = TemporaryS.objects.get(id=1)
+    seller = Seller.objects.get(Q(sellerName=x.sellerName) & Q(sellerPassword=x.sellerPassword))
+
+    products = Products.objects.filter(sellerId=seller.id)
+    context = {'products': products}
+
+    return render(request, 'products/sellerproductlist.html', context)
+
+
 def showOrder(request):
 
     x = TemporaryS.objects.get(id=1)
